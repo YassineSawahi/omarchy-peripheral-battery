@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.yassinesawahi.peripheral-battery",
+  "name": "Peripheral battery",
+  "version": "1.0.0",
+  "author": "Yassine Sawahi",
+  "homepage": "https://github.com/YassineSawahi/omarchy-peripheral-battery",
+  "license": "MIT",
+  "description": "Battery of the Redragon K1NG M916 mouse and K681 PRO keyboard, read over their 2.4G receivers",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Peripheral battery",
+    "description": "Mouse and keyboard battery level, with a popup for charge state, voltage and firmware",
+    "category": "Status",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "schema": [
+      {
+        "key": "refreshIntervalSec",
+        "type": "integer",
+        "label": "Refresh interval (seconds)",
+        "min": 30,
+        "max": 1800,
+        "step": 30,
+        "defaultValue": 120
+      },
+      {
+        "key": "lowThreshold",
+        "type": "integer",
+        "label": "Low battery warning (%)",
+        "min": 5,
+        "max": 50,
+        "step": 5,
+        "defaultValue": 20
+      }
+    ]
+  }
+}
