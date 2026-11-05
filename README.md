@@ -41,6 +41,14 @@ Settings (in Omarchy's widget settings): refresh interval (default 120 s) and lo
 
 Both receivers are Compx-based (USB vendor `3554`). The protocol notes are at the top of [`peripheral-battery.py`](peripheral-battery.py). Other Compx mice may answer the same battery command (`0x04` on report `0x08`) under a different product ID. Change `MOUSE` in the script to try yours.
 
+## Remove
+
+```bash
+omarchy plugin remove io.github.yassinesawahi.peripheral-battery
+sudo rm /etc/udev/rules.d/70-redragon-hidraw.rules && sudo udevadm control --reload
+rm -f ~/.cache/omarchy/peripheral-battery.json    # the last reading
+```
+
 ## License
 
 MIT
