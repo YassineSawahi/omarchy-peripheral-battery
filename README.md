@@ -37,6 +37,20 @@ Unplug and replug the receivers if the widget still says "No access to the recei
 
 Settings (in Omarchy's widget settings): refresh interval (default 120 s) and low battery threshold (default 20%).
 
+## How it works
+
+Everything happens on this PC, between the widget and the USB receivers. Nothing runs in the background and nothing goes over the network.
+
+Each refresh, the widget runs `peripheral-battery.py`, which:
+
+1. finds each receiver among the `/dev/hidraw*` nodes (USB vendor `3554`), and picks its vendor interface out by the report descriptor,
+2. writes one small query packet to it, and waits for the answer the receiver brings back from the mouse or keyboard over 2.4G,
+3. prints one JSON object for the widget.
+
+A mouse that's asleep doesn't answer, so the last good reading is kept in `~/.cache/omarchy/peripheral-battery.json` and shown dimmed until a fresh one comes in. The low battery warning is an ordinary desktop notification from the widget.
+
+Hidraw nodes belong to root. The udev rule tags Redragon's receivers `uaccess`, which lets whoever is logged in at the desk open them, so the script never needs `sudo`.
+
 ## Other Redragon devices
 
 Both receivers are Compx-based (USB vendor `3554`). The protocol notes are at the top of [`peripheral-battery.py`](peripheral-battery.py). Other Compx mice may answer the same battery command (`0x04` on report `0x08`) under a different product ID. Change `MOUSE` in the script to try yours.
